@@ -36,12 +36,15 @@ test:
     reports:
       junit: build/test-results/test/**/TEST-*.xml
 
+
 deploy:
   stage: deploy
+  image: openjdk
+  tags:
+    - "20-oracle"
   script:
-    - echo deploy
-  only:
-    - master
+    - java -version
+
 
 Report:
   stage: report
