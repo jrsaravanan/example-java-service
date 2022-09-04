@@ -9,15 +9,14 @@ cache:
     - target/
 
 stages:
-  - build
   - test
   - visualize
   - deploy 
 
-build:
-  stage: build
-  script:
-    - ./gradlew clean build 
+# build:
+#   stage: build
+#   script:
+#     - ./gradlew clean build 
 
 test:
   stage: test
@@ -45,4 +44,4 @@ coverage-jdk11:
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: target/site/cobertura.xml
+        path: build/site/cobertura.xml
