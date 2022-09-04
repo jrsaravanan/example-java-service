@@ -16,6 +16,7 @@ cache:
 stages:
   - test
   - visualize
+  - report
   - deploy 
 
 # build:
@@ -31,6 +32,7 @@ test:
     when: always
     paths:
       - build/reports/jacoco/test/jacocoTestReport.xml
+      - build/reports/jacoco/test/html/**/*.*
     reports:
       junit: build/test-results/test/**/TEST-*.xml
 
@@ -40,6 +42,17 @@ deploy:
     - echo deploy
   only:
     - master
+
+Report:
+  stage: report
+  script:
+    - mkdir public
+    - mv build/reports/jacoco/test/html/* public
+  artifacts:
+    when: always
+    paths:
+      - public
+    expire_in: 1 week    
 
 coverage-jdk11:
   # Must be in a stage later than test-jdk11's stage.
