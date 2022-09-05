@@ -16,54 +16,9 @@ cache:
 stages:
   - buildnew 
 
-# build:
-#   stage: build
-#   script:
-#     - ./gradlew clean build 
-
-test:
-  stage: test
-  script:
-    - ./gradlew clean test jacocoTestReport
-  artifacts:
-    when: always
-    paths:
-      - build/reports/jacoco/test/jacocoTestReport.xml
-      - build/reports/jacoco/test/html/**/*.*
-    reports:
-      junit: build/test-results/test/**/TEST-*.xml
-
-
 deploy:
   stage: buildnew
   image: registry.gitlab.com/cloudtron/example-java-service/utils-src
   script:
     - env
 
-
-Report:
-  stage: report
-  script:
-    - mkdir public
-    - mv build/reports/jacoco/test/html/* public
-  artifacts:
-    when: always
-    paths:
-      - public
-    expire_in: 1 week    
-
-coverage-jdk11:
-  # Must be in a stage later than test-jdk11's stage.
-  # The `visualize` stage does not exist by default.
-  # Please define it first, or chose an existing stage like `deploy`.
-  stage: visualize
-  image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
-  script:
-    # convert report from jacoco to cobertura, using relative project path
-    - python /opt/cover2cover.py build/reports/jacoco/test/jacocoTestReport.xml $CI_PROJECT_DIR/src/main/java/ > build/reports/jacoco/test/cobertura.xml
-  needs: ["test"]
-  artifacts:
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: build/reports/jacoco/test/cobertura.xml
