@@ -19,7 +19,7 @@ stages:
 deploy:
   stage: buildnew
   image: registry.gitlab.com/cloudtron/example-java-service/utils-src:2
-  command: ["env"]
   script:
     - env
+    - test
 
