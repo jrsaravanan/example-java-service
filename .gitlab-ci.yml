@@ -14,9 +14,9 @@ cache:
     - target/
 
 stages:
-  - test
-  - visualize
-  - report
+  # - test
+  # - visualize
+  # - report
   - deploy 
 
 # build:
@@ -39,11 +39,9 @@ test:
 
 deploy:
   stage: deploy
-  image: registry.hub.docker.com/library/openjdk
-  tags:
-    - "20-oracle"
+  image: registry.gitlab.com/cloudtron/example-java-service/utils-src
   script:
-    - java -version
+    - env
 
 
 Report:
