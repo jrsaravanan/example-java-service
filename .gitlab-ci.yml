@@ -14,9 +14,6 @@ cache:
     - target/
 
 stages:
-  # - test
-  # - visualize
-  # - report
   - deploy 
 
 # build:
