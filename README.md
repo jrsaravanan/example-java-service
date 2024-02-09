@@ -27,7 +27,7 @@ docker run -i -p 8080:8080 kubescope/example-service
 ## REST Operations
 ```shell
 #To get all user  
-curl --location --request GET 'http://localhost:8080/api/v1/users'
+curl --location --request GET 'http://example-service:8080/api/v1/users'
 
 #To get by id   
 curl --location --request GET 'http://localhost:8080/api/v1/users/12'
@@ -62,3 +62,4 @@ Image will be pulled from docker registry https://hub.docker.com/r/kubescope/exa
 # deploys service and deployment 
 kubectl apply -f kube/example-srv-deployment.yml
 ```
+dino-gke-dev-sa
